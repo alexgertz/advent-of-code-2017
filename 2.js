@@ -16,15 +16,38 @@ const puzzleInput = `798,1976,1866,1862,559,1797,1129,747,85,1108,104,2000,248,1
 3591,1843,3448,1775,3564,2632,1002,3065,77,3579,78,99,1668,98,2963,3553
 2155,225,2856,3061,105,204,1269,171,2505,2852,977,1377,181,1856,2952,2262`;
 
-var puzzleArrayRows = puzzleInput.split('\n');
+const puzzleArrayRows = puzzleInput.split('\n');
 
 // Finding max and min per row to calculate diff
-puzzleArrayRows = puzzleArrayRows.map(a => {
+puzzleRowDifferences = puzzleArrayRows.map(a => {
     let rowValues = a.split(',').map(s => parseInt(s));
     return Math.max(...rowValues) - Math.min(...rowValues);
 });
 
-// Sum up all differences as the answer
-let answer = puzzleArrayRows.reduce((a,b) => a + b);
+// Finding the dividers per row
+puzzleRowDividers = puzzleArrayRows.map(a => {
+    let rowValues = a.split(',').map(s => parseInt(s));
+    let divider = 0;
 
-console.log(answer);
+    rowValues.forEach((element1, index1) => {
+
+        rowValues.forEach((element2, index2) => {
+            if (index1 != index2 && Number.isInteger(element1 / element2)) {
+                divider = element1 / element2;
+            }
+        })    
+        
+    });
+
+    return divider;
+});
+
+// Sum up all differences as the answer
+let answerPartOne = puzzleRowDifferences.reduce((a,b) => a + b);
+
+
+// Sum up all the dividers as the answer
+let answerPartTwo = puzzleRowDividers.reduce((a,b) => a + b);
+
+console.log('The answer for part one: ' + answerPartOne);
+console.log('The answer for part two: ' + answerPartTwo);
