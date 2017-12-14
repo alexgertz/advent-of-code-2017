@@ -1,7 +1,6 @@
 const fs = require('fs');
 
 let puzzleInput = fs.readFileSync('input12.txt', {encoding: 'utf-8'});
-
 let rows = puzzleInput.split('\n');
 rows = rows.map(row => {
     return [parseInt(row.split('<->')[0]), [...row.split('<->')[1].split(',')]];
@@ -21,14 +20,10 @@ function findConnections  (connections) {
             }
         });
 
-
         let totalConnections = [...new Set([...connections, ...newConnections])];
-
         if ([...new Set(connections)].length == totalConnections.length) {
             foundAll = true;
-            if (newConnections.length) {
-                groups.push(totalConnections);
-            }
+            groups.push(totalConnections);
         }
         connections = totalConnections;
     }
@@ -39,10 +34,11 @@ function findConnections  (connections) {
             }
         })
     });
+
+    return groups;
 }
 
-findConnections([0]);
-console.log("Part one: " + groups[0].length);
+console.log("Part one: " + findConnections([0])[0].length);
 
 let amIDone = false;
 while (!amIDone) {
