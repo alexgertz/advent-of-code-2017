@@ -5,7 +5,7 @@ var puzzleLengths = '106,118,236,1,130,0,235,254,59,205,2,87,129,25,255,118',
     skipSize = 0;
 
 // [1,2,3] should give 3efbe78a8d82f29979031a4aa0b16a9d
-// puzzleLengths = '1,2,3';
+puzzleLengths = 'AoC 2017';
 puzzleLengths = [...puzzleLengths.split('').map(char => char.charCodeAt(0)),...lengthsAppend];
 
 
