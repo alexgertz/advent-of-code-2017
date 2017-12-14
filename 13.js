@@ -14,7 +14,7 @@ rows.forEach(row => {
 // For part two:
 // Run the code below for different start picoseconds?
 
-function move (offset) {
+function move (offset, hardmode) {
     let severity = [0];
     let position = 0;
 
@@ -26,6 +26,7 @@ function move (offset) {
         }
 
         if ((position+offset) % ((2*layer.depth) - 2) == 0) {
+            if (hardmode) return 1;
             severity.push(layer.layer * layer.depth)
         }
 
@@ -36,17 +37,17 @@ function move (offset) {
 
 console.log("Part one: " + move(0));
 
+
 let offset = 0;
 let severity = true;
 
 while (severity) {
-    let moveSeverity = move(offset);
+    let moveSeverity = move(offset, true);
     if (moveSeverity == 0) {
-        console.log(offset);
         severity = false;
-        return;
+    } else {
+        offset++;
     }
-    offset++;
 }
 
 console.log("Part two: " + offset);
