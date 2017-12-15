@@ -69,6 +69,9 @@ for (var pairs = 0; pairs < pairsToProduce;pairs++) {
 
     while (valA % generatorAMultiplier) {
         valA = (valA * generatorAFactor) % divider;
+        if (valA % generatorAMultiplier == 0) {
+            console.log(valA); // The first number here is the one it should be 1352636452
+        }     
     }
     while (valB % generatorBMultiplier) {
         valB = (valB * generatorBFactor) % divider;
