@@ -11,13 +11,6 @@ let valB = 124;
 let matches = 0;
 let pairsToProduce = 0; // Performance is king
 
-/*
-
-
-let valA = 65;
-let valB = 8921;
-*/
-
 let bin = n => ("00000000000" + (n >>> 0).toString(2)).substr(-32);
 
 for (var pairs = 0; pairs < pairsToProduce;pairs++) {
@@ -55,14 +48,24 @@ console.log("Part one: " + matches);
 00011000100100101011101101010000
  */
 
+
+
+/*
+By accident I know now my answer is 311-324
 valA = 699;
 valB = 124;
+*/
 
-pairsToProduce = 5;
+valA = 65;
+valB = 8921;
+
+
+pairsToProduce = 5000000;
 matches = 0;
 for (var pairs = 0; pairs < pairsToProduce;pairs++) {
+
     valA = (valA * generatorAFactor) % divider;
-    valB = (valB * generatorBFactor) % divider;
+    valB = (valB * generatorAFactor) % divider;
 
     while (valA % generatorAMultiplier) {
         valA = (valA * generatorAFactor) % divider;
@@ -71,12 +74,9 @@ for (var pairs = 0; pairs < pairsToProduce;pairs++) {
         valB = (valB * generatorBFactor) % divider;
     }
 
-    console.log(valA, valB);
-    
-    // console.log(bin(valA), bin(valB));
-    
-
     if (bin(valA).substr(-16) == bin(valB).substr(-16)) {
         matches++;
     }
 }
+
+console.log("Part two: " + matches);
