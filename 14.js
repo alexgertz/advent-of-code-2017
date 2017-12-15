@@ -49,12 +49,65 @@ function hashifyKnot (puzzleLengths) {
     });
     
     return knotHash.join('');
-    
 }
 
+
 let knotHashes = grid.map((n, index) => hashifyKnot(puzzleInput+'-'+index));
-let binaries = knotHashes.map(s => s.split('').map(n => ('0000' + parseInt(n,16).toString(2)).substr(-4))).join('');
+let binaries = knotHashes.map(s => s.split('').map(n => ('0000' + parseInt(n,16).toString(2)).substr(-4)));
+let unos = binaries.join('').match(/1/g);
 
-let unos = binaries.match(/1/g);
+console.log("Part one: " + unos.length);
 
-console.log("Part one:" + unos.length);
+let regions = [];
+let rows = binaries.map(arr => [].concat(...arr.map(n => n.split('').map(l => parseInt(l)))));
+
+
+function findNeighbours (x, y, squares) {
+    let squaresLG = [...squares];
+    let squareMap = [
+        {x: x-1, y: y},
+        {x: x+1, y: y},
+        {x: x, y: y-1},
+        {x: x, y: y+1}
+    ];
+
+    squareMap.forEach(dot => {
+        if (rows[dot.y] && rows[dot.y][dot.x]) {
+            let matchingSquares = squares.filter(dotdot => {
+                return dotdot.join(',') == dot.x + ',' + dot.y;
+            });
+            if (!matchingSquares.length) {
+                squares.push([dot.x, dot.y]);                   
+            }
+        }  
+    });
+    if (squaresLG.length == squares.length) {
+        return squares;
+    } else {
+        squares.forEach(sq => {
+            findNeighbours(sq[0], sq[1], squares);
+        });
+        return squares;
+    }
+}
+
+function flipSquares (coordinates) {
+    coordinates.forEach(coordinate => {
+        rows[coordinate[1]][coordinate[0]] = 0;
+    })
+}
+
+// Find all the edges
+// Update the used indexes to 0s
+// Add something to the regions
+rows.forEach((row, y) => {
+    row.forEach((square, x) => {
+        if (square == 1) {
+            let squares = findNeighbours(x, y, []);
+            flipSquares(squares);
+            regions.push([squares]);
+        }
+    });
+});
+
+console.log("Part two: " + regions.length);
