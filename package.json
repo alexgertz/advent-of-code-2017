@@ -1,0 +1,16 @@
+{
+  "name": "advent-of-code-2017",
+  "version": "1.0.0",
+  "description": "Advent of Code 2017 solutions",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "jest --watch"
+  },
+  "repository": "https://github.com/alexgertz/advent-of-code-2017.git",
+  "author": "sonkan <alexander.k.gertz@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "jest": "^21.2.1"
+  }
+}
