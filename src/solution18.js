@@ -8,18 +8,20 @@ let solution18 = {
 
         while (!recovered) {
             let instruction = instructions[index];
-            console.log(index, register);
-
             let [operator, first, second] = instruction.split(/\s/);
+
             second = typeof register[second] !== 'undefined' 
                 ?  register[second] : parseInt(second);
 
-            if (typeof register[first] == 'undefined') register[first] = 0;
+            if (isNaN(first) && typeof register[first] == 'undefined') register[first] = 0;
             
             if (operator == 'set') register[first] = second;
             if (operator == 'add') register[first] += second;
-            if (operator == 'mul') register[first] *= register[first];
-            if (operator == 'mod') register[first] %= second;
+            if (operator == 'mul') register[first] *= second;
+            if (operator == 'mod') {
+                if (second == 0) register[first] = 0;
+                else register[first] %= second
+            }
 
             if (operator == 'snd') lastPlayed = register[first];
             if (operator == 'rcv' && register[first]) return lastPlayed;
