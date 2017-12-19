@@ -21,8 +21,8 @@ describe('answer1', () => {
 
 describe('getNumberAfterZero', () => {
     
-    test('with test input it should return 10 after 10 insertions', () => {
-    expect(solution17.getNumberAfterZero(testInput, 9)).toBe(10);
+    test('with test input it should return 9 after 9 insertions', () => {
+    expect(solution17.getNumberAfterZero(testInput, 9)).toBe(9);
     })
 
 });
